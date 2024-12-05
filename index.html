@@ -1,233 +1,145 @@
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>HorseMatch: Dating for Horses</title>
+        <title>HorseMatch Portal</title>
         <style>
+        :root {
+        --primary: #2e1810;
+        --secondary: #8b4513;
+        --accent: #d4a76a;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f5e6d3;
-            height: 100vh;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .card {
-            display: flex;
-            flex-direction: column;
-
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .horse-info {
-            padding: 20px;
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Segoe UI', system-ui;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         }
 
-        .horse-img {
-            max-width: 100%;
-        }
-        
-        .buttons {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-        }
-        
-        .btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .nope {
-            background: #ff4b4b;
-            color: white;
-            font-size: 24px;
-        }
-        
-        .like {
-            background: #4bdb72;
-            color: white;
-            font-size: 24px;
-        }
-        
-        .profile-pic svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .swipe-animation {
-            animation: swipe 0.5s ease-out forwards;
-        }
-        
-        @keyframes swipe {
-            to {
-            transform: translateX(400px) rotate(30deg);
-            opacity: 0;
-            }
+        .portal {
+        text-align: center;
+        padding: 2rem;
+        max-width: 1200px;
         }
 
-        .logo {
-            text-align: center;
-            padding: 20px;
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
+        h1 {
+        font-size: 3.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--accent);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .match-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 48px;
-            z-index: 1000;
+        .horse-animation {
+        width: 300px;
+        height: 300px;
+        margin: 2rem auto;
         }
 
-        .hearts {
-            position: absolute;
-            animation: float 3s infinite;
+        .horse-animation path {
+        stroke: var(--accent);
+        stroke-width: 2;
+        fill: none;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawHorse 3s ease forwards;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes drawHorse {
+        to {
+            stroke-dashoffset: 0;
         }
+        }
+
+        .match-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+        }
+
+        .option-card {
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: transform 0.3s;
+        backdrop-filter: blur(5px);
+        }
+
+        .option-card:hover {
+        transform: translateY(-5px);
+        }
+
+        .cta-button {
+        background: var(--accent);
+        color: var(--primary);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+        background: white;
+        transform: scale(1.05);
+        }
+
+        .cover {
+            border-radius: 10px;
+            max-width: 500px;
+        }
+
         </style>
     </head>
-    <body>
-        <div class="match-animation">
-        🎉 It's a Match! 🎉
-        <div class="hearts">❤️🐴❤️</div>
-        </div>
+<body>
 
-        <div class="container">
-        <div class="logo">HorseMatch 🐴</div>
-        <div class="card" id="current-profile">
-            <div class="horse-info">
-            <img class="horse-img" src="./images/thunder.png"/>
-            <h2>Thunder, 10</h2>
-            <p>Friesian Horse • 2 miles away</p>
-            <p>Loves galloping on the beach, fresh hay, and sugar cubes. Looking for a stable relationship! 🌟</p>
-            </div>
-            <div class="buttons">
-            <button class="btn nope" onclick="swipe('left')">✖</button>
-            <button class="btn like" onclick="swipe('right')">❤</button>
-            </div>
-        </div>
-        </div>
+<div class="portal">
+  <h1>HorseMatch</h1>
+  <p>Find Your Perfect Equine Partner</p>
 
-        <script>
-        const horses = [
-            {
-                name: "Thunder",
-                age: 10,
-                breed: "Friesian Horse",
-                distance: 2,
-                bio: "Loves galloping on the beach, fresh hay, and sugar cubes. Looking for a stable relationship! 🌟",
-                image: "./images/thunder.png"
-            },
-            {
-                name: "Luna",
-                age: 15,
-                breed: "Arabian Horse",
-                distance: 5,
-                bio: "Elegant and spirited. Seeking a companion for moonlit trots. No ponies please! 🌙",
-                image: "./images/luna.png"
-            },
-            {
-                name: "John",
-                age: 34,
-                breed: "Definitely a horse",
-                distance: 1,
-                bio: "I am a horse looking for another horse to be horses together",
-                image: "./images/john.png"
-            },
-            {
-                name: "Duke",
-                age: 7,
-                breed: "Clydesdale",
-                distance: 3,
-                bio: "Gentle giant with a heart of gold. Expert at pulling carriages. Looking for my princess! 👑",
-                image: "./images/duke.png"
-            },
-            {
-                name: "Marty",
-                age: 13,
-                breed: "Zebra",
-                bio: "Ah, you came to the right place, my friend! Dr. Marty D.D.S. is in the house! Please hop on top of my sterilized examination table, if you may.",
-                image: "./images/marty.png"
-            },
-            {
-                name: "Odin",
-                age: 10,
-                breed: "The only breed",
-                distance: 1,
-                bio: "Fast as heck boi",
-                image: "./images/odin.png"
-            }
-        ];
+  <img src="./images/cover.png" class="cover" />
 
-        let currentIndex = 0;
+  <div class="match-options">
+    <div class="option-card">
+      <h3>Find a Horse</h3>
+      <p>Match against thousands of horses available in your area.</p>
+      <a href="/match.html"><button class="cta-button">Start Matching</button></a>
+    </div>
+  </div>
 
-        function swipe(direction) {
-            const card = document.getElementById('current-profile');
-            card.classList.add('swipe-animation');
-            
-            if (direction === 'right') {
-                if (Math.random() < 0.1) {
-                    setTimeout(showMatch, 500);
-                }
-            }
-            
-            setTimeout(() => {
-                    card.classList.remove('swipe-animation');
-                    loadNextProfile();
-                }, 500);
-        }
+  <footer>
+    <p>HorseMatch © 2024</p>
+  </footer>
+</div>
 
-        function showMatch() {
-            const matchAnimation = document.querySelector('.match-animation');
-            matchAnimation.style.display = 'flex';
-            setTimeout(() => {
-                matchAnimation.style.display = 'none';
-            }, 3000);
-        }
+<script>
+// Add smooth scrolling to all links
+document.querySelectorAll('a[href^="https"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    
+    // Animate out
+    document.body.style.opacity = 0;
+    
+    // Navigate after animation
+    setTimeout(() => {
+      window.location.href = href;
+    }, 500);
+  });
+});
 
-        function loadNextProfile() {
-            currentIndex = (currentIndex + 1) % horses.length;
-            const horse = horses[currentIndex];
-            
-            const horseInfo = document.querySelector('.horse-info');
-            horseInfo.innerHTML = `
-                <img class="horse-img" src="${horse.image}"/>
-                <h2>${horse.name}, ${horse.age}</h2>
-                <p>${horse.breed} • ${horse.distance} mile(s) away</p>
-                <p>${horse.bio}</p>
-            `;
-        }
-        </script>
-    </body>
-</html>
+// Add hover animation to horse
+const horse = document.querySelector('.horse-animation path');
+horse.addEventListener('mouseenter', () => {
+  horse.style.animation = 'none';
+  horse.offsetHeight; // Trigger reflow
+  horse.style.animation = 'drawHorse 3s ease forwards';
+});
+
+</script>
+</body></html>
