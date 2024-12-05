@@ -158,12 +158,27 @@
                 image: "./images/luna.png"
             },
             {
+                name: "John",
+                age: 34,
+                breed: "Definitely a horse",
+                distance: 1,
+                bio: "I am a horse looking for another horse to be horses together",
+                image: "./images/john.png"
+            },
+            {
                 name: "Duke",
                 age: 7,
                 breed: "Clydesdale",
                 distance: 3,
                 bio: "Gentle giant with a heart of gold. Expert at pulling carriages. Looking for my princess! 👑",
                 image: "./images/duke.png"
+            },
+            {
+                name: "Marty",
+                age: 13,
+                breed: "Zebra",
+                bio: "Ah, you came to the right place, my friend! Dr. Marty D.D.S. is in the house! Please hop on top of my sterilized examination table, if you may.",
+                image: "./images/marty.png"
             },
             {
                 name: "Odin",
@@ -178,19 +193,19 @@
         let currentIndex = 0;
 
         function swipe(direction) {
-        const card = document.getElementById('current-profile');
-        card.classList.add('swipe-animation');
-        
-        if (direction === 'right') {
-            if (Math.random() < 0.1) {
-                setTimeout(showMatch, 500);
+            const card = document.getElementById('current-profile');
+            card.classList.add('swipe-animation');
+            
+            if (direction === 'right') {
+                if (Math.random() < 0.1) {
+                    setTimeout(showMatch, 500);
+                }
             }
-        }
-        
-        setTimeout(() => {
-                card.classList.remove('swipe-animation');
-                loadNextProfile();
-            }, 500);
+            
+            setTimeout(() => {
+                    card.classList.remove('swipe-animation');
+                    loadNextProfile();
+                }, 500);
         }
 
         function showMatch() {
@@ -202,16 +217,16 @@
         }
 
         function loadNextProfile() {
-        currentIndex = (currentIndex + 1) % horses.length;
-        const horse = horses[currentIndex];
-        
-        const horseInfo = document.querySelector('.horse-info');
-        horseInfo.innerHTML = `
-            <img class="horse-img" src="${horse.image}"/>
-            <h2>${horse.name}, ${horse.age}</h2>
-            <p>${horse.breed} • ${horse.distance} mile(s) away</p>
-            <p>${horse.bio}</p>
-        `;
+            currentIndex = (currentIndex + 1) % horses.length;
+            const horse = horses[currentIndex];
+            
+            const horseInfo = document.querySelector('.horse-info');
+            horseInfo.innerHTML = `
+                <img class="horse-img" src="${horse.image}"/>
+                <h2>${horse.name}, ${horse.age}</h2>
+                <p>${horse.breed} • ${horse.distance} mile(s) away</p>
+                <p>${horse.bio}</p>
+            `;
         }
         </script>
     </body>
